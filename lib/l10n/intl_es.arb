@@ -9,12 +9,12 @@
     "about": "Sobre",
     "about_description": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?",
     "experience": "Experiencia",
-    "experience_visa": "Graduate Software Engineer",
-    "experience_visa_desc": "• Full stack agile development in Java, Flutter, Python, Svelte, and SQL\n• Designed, developed, and delivered major sections of VisaGO - the first direct-to-consumer facing Visa app with digital issuance and the first to achieve over 150,000 downloads within 90 days\n• Integrated with ChatGPT on multiple internal projects to speed up other teams’ workflows",
-    "experience_calspan": "Software Engineering Intern",
-    "experience_calspan_desc": "• Designed & delivered a GUI in C++ for running scripts in a flight simulator, including XML customization\n• Tested cockpit emulators and software integration on Learjets, Gulfstreams, and the X-62 fighter jet",
-    "experience_coachmeplus": "Junior Software Developer",
-    "experience_coachmeplus_desc": "• Worked closely with Senior Developers to develop front end modules in current production release\n• Shipped PHP, HTML, and CSS features, and tested web applications locally and through TestFlight",
+    "experience_visa": "Ingeniero diplomado de Software",
+    "experience_visa_desc": "• Desarrollo ágil full stack en Java, Flutter, Python, Svelte, y SQL\n• Diseñó, desarrolló e impartió importantes secciones de VisaGO - la primera aplicación Visa con emisión digital dirigida directamente al consumidor y la primera en lograr más de 150.000 descargas en 90 días\n• Integración con ChatGPT en múltiples proyectos internos para agilizar los flujos de trabajo de otros equipos",
+    "experience_calspan": "Becario de Ingeniería de Software",
+    "experience_calspan_desc": "• Diseño y entrega de una interfaz gráfica de usuario en C++ para ejecutar secuencias de comandos en un simulador de vuelo, incluida la personalización en XML\n• Probado emuladores de cabina e integración de software en Learjets, Gulfstreams y el caza X-62",
+    "experience_coachmeplus": "Desarrollador de software junior",
+    "experience_coachmeplus_desc": "• Trabajó en estrecha colaboración con desarrolladores senior para desarrollar módulos frontales en la versión de producción actual\n• Envío de funciones PHP, HTML y CSS, y prueba de aplicaciones web localmente y a través de TestFlight",
     "music": "Musica",
     "photos": "Fotos"
 }

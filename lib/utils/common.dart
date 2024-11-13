@@ -8,7 +8,7 @@ class Spacer1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SizedBox(height: 50);
+    return const SizedBox(height: 25, width: 25);
   }
 }
 
@@ -17,7 +17,7 @@ class Spacer2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SizedBox(height: 75);
+    return const SizedBox(height: 50, width: 50);
   }
 }
 
@@ -26,7 +26,7 @@ class Spacer3 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SizedBox(height: 100);
+    return const SizedBox(height: 75, width: 75);
   }
 }
 

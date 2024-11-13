@@ -174,8 +174,11 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
                       }
                       setState(() {});
                     }, color: _menuIndex == 1 ? _jColors[_colorIndex] : textColor),
-                    if (_menuIndex == 1)
-                      TextItem(text: loc.experience_description, color: textColor),
+                    if (_menuIndex == 1) ...[
+                      ExperienceWidget(logo: VISA, role: loc.experience_visa, content: loc.experience_visa_desc, light: winter),
+                      ExperienceWidget(logo: winter ? CALSPAN_WHITE : CALSPAN_BLACK, role: loc.experience_calspan, content: loc.experience_calspan_desc, light: winter),
+                      ExperienceWidget(logo: COACHMEPLUS, role: loc.experience_coachmeplus, content: loc.experience_coachmeplus_desc, light: winter),
+                    ],
                     MenuItem(text: loc.music, onPressed: () {
                       if (_menuIndex == 2) {
                         _menuIndex = -1;
@@ -192,7 +195,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
                       }
                       setState(() {});
                     }, color: _menuIndex == 3 ? _jColors[_colorIndex] : textColor),
-                    const Spacer1(),
+                    const Spacer2(),
                   ]
                 ),
               ]
@@ -215,7 +218,7 @@ class MenuItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Spacer1(),
+        const Spacer2(),
         ColoredTextButton(text: text, onPressed: onPressed, color: color),
       ]
     );
@@ -232,7 +235,7 @@ class TextItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Spacer1(),
+        const Spacer2(),
         Row(children: [
           Expanded(
             child: Center(
@@ -245,6 +248,48 @@ class TextItem extends StatelessWidget {
         ]),
       ]
     );
+  }
+}
+
+class ExperienceWidget extends StatelessWidget {
+  final String logo;
+  final String role;
+  final String content;
+  final bool light;
+
+  const ExperienceWidget({required this.logo, required this.role, required this.content, this.light = true, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    Color textColor = light ? Colors.white : Colors.black;
+
+    return Center(child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 700), 
+      child: Padding(
+        padding: const EdgeInsets.only(top: 25),
+        child: Container(
+          padding: const EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            color: light ? Colors.black : Colors.white,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Wrap(
+                children: [
+                  Image.asset(logo, height: 30, fit: BoxFit.cover),
+                  const Spacer1(),
+                  BodyText(text: role, color: textColor),
+                ],
+              ),
+              const SizedBox(height: 10),
+              BodyText(text: content, color: textColor),
+            ],
+          ),
+        ),
+      ),
+    ));
   }
 }
 
@@ -264,7 +309,7 @@ class SocialLink extends StatelessWidget {
       onPressed: () async {
         await  launchUrl(Uri.parse(link));
       },
-      icon: SvgPicture.asset(logo, width: 40, colorFilter: ColorFilter.mode(color, BlendMode.srcIn),),
+      icon: SvgPicture.asset(logo, width: 40, colorFilter: ColorFilter.mode(color, BlendMode.srcIn)),
     );
   }
 }

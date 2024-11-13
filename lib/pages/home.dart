@@ -91,10 +91,16 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
           ),
         ],
       ),
-      bottomLeft: monoTone ? Row(children: [
-        SocialLink(logo: GITHUB, link: "https://github.com/ljbalbach", color: textColor),
-        SocialLink(logo: LINKEDIN, link: "https://www.linkedin.com/in/lucas-balbach-950002108/", color: textColor),
-      ]) : null,
+      bottomLeft: monoTone ? Container(
+        decoration: BoxDecoration(
+          color: winter ? Colors.white : Colors.black,
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: Row(children: [
+          SocialLink(logo: GITHUB, link: "https://github.com/ljbalbach", color: textColor),
+          SocialLink(logo: LINKEDIN, link: "https://www.linkedin.com/in/lucas-balbach-950002108/", color: textColor),
+        ]),
+      ) : null,
       bottomRight: GestureDetector(
         onTap: () {
           setState(() {
@@ -195,7 +201,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
                       }
                       setState(() {});
                     }, color: _menuIndex == 3 ? _jColors[_colorIndex] : textColor),
-                    const Spacer2(),
+                    const Spacer3(),
                   ]
                 ),
               ]

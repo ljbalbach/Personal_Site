@@ -90,6 +90,7 @@ class ColoredTextButton extends StatefulWidget {
   final Color? color;
 
   const ColoredTextButton({required this.text, required this.onPressed, this.color, super.key});
+  
   @override
   ColoredTextButtonState createState() => ColoredTextButtonState();
 }

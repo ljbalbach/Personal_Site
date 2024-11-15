@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:expansion_tile_list/expansion_tile_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_starter/containers/default_container.dart';
@@ -8,6 +9,14 @@ import 'package:flutter_starter/utils/common.dart';
 import 'package:flutter_starter/utils/constants.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+final List<Color> _jColors = [
+  const Color.fromARGB(255, 226, 130, 244).withOpacity(0.9),
+  Colors.green.withOpacity(0.9),
+  Colors.yellow.withOpacity(0.9),
+  Colors.red.withOpacity(0.9),
+  Colors.tealAccent.withOpacity(0.9)
+];
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -19,13 +28,11 @@ class Home extends StatefulWidget {
 class HomeState extends State<Home> with TickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _seasonsImageRotationAnimation;
-  final List<Color> _jColors = [
-    const Color.fromARGB(255, 226, 130, 244).withOpacity(0.9),
-    Colors.green.withOpacity(0.9),
-    Colors.yellow.withOpacity(0.9),
-    Colors.red.withOpacity(0.9),
-    Colors.tealAccent.withOpacity(0.9)
-  ];
+  
+  ExpansionTileController aboutController = ExpansionTileController();
+  ExpansionTileController experienceController = ExpansionTileController();
+  ExpansionTileController projectsController = ExpansionTileController();
+  ExpansionTileController photosController = ExpansionTileController();
   late Timer _timer;
   int _colorIndex = 0;
   int _menuIndex = -1;
@@ -64,6 +71,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     var loc = AppLocalizations.of(context);
     Color textColor = winter ? Colors.black : Colors.white;
+    List<ExpansionTileController> expansionControllers = [aboutController, experienceController, projectsController, photosController];
 
     return DefaultContainer(
       lightMode: winter,
@@ -141,66 +149,84 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                InkWell(
-                  onTap: () {
+                NameWidget(
+                  loc: loc,
+                  onPressed: () {
                     monoTone = !monoTone;
                     setState(() {});
                   },
-                  hoverColor: Colors.transparent,
-                  splashColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  child: RichText(
-                    text: TextSpan(
-                      children: <TextSpan>[
-                        TextSpan(text: loc.first_name, style: Theme.of(context).textTheme.displayLarge!.copyWith(color: textColor)),
-                        TextSpan(text: loc.middle_name, style: Theme.of(context).textTheme.displayLarge!.copyWith(color: _jColors[_colorIndex])),
-                        TextSpan(text: loc.last_name, style: Theme.of(context).textTheme.displayLarge!.copyWith(color: textColor)),
-                      ],
-                    ),
-                  ),
+                  textColor: textColor,
+                  colorIndex: _colorIndex,
                 ),
                 if (monoTone) Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    MenuItem(text: loc.about, onPressed: () {
-                      if (_menuIndex == 0) {
-                        _menuIndex = -1;
-                      } else {
-                        _menuIndex = 0;
-                      }
-                      setState(() {});
-                    }, color: _menuIndex == 0 ? _jColors[_colorIndex] : textColor),
-                    if (_menuIndex == 0)
-                      TextItem(text: loc.about_description, color: textColor),
-                    MenuItem(text: loc.experience, onPressed: () {
-                      if (_menuIndex == 1) {
-                        _menuIndex = -1;
-                      } else {
-                        _menuIndex = 1;
-                      }
-                      setState(() {});
-                    }, color: _menuIndex == 1 ? _jColors[_colorIndex] : textColor),
-                    if (_menuIndex == 1) ...[
-                      ExperienceWidget(logo: VISA, role: loc.experience_visa, content: loc.experience_visa_desc, light: winter),
-                      ExperienceWidget(logo: winter ? CALSPAN_WHITE : CALSPAN_BLACK, role: loc.experience_calspan, content: loc.experience_calspan_desc, light: winter),
-                      ExperienceWidget(logo: COACHMEPLUS, role: loc.experience_coachmeplus, content: loc.experience_coachmeplus_desc, light: winter),
-                    ],
-                    MenuItem(text: loc.music, onPressed: () {
-                      if (_menuIndex == 2) {
-                        _menuIndex = -1;
-                      } else {
-                        _menuIndex = 2;
-                      }
-                      setState(() {});
-                    }, color: _menuIndex == 2 ? _jColors[_colorIndex] : textColor),
-                    MenuItem(text: loc.photos, onPressed: () {
-                      if (_menuIndex == 3) {
-                        _menuIndex = -1;
-                      } else {
-                        _menuIndex = 3;
-                      }
-                      setState(() {});
-                    }, color: _menuIndex == 3 ? _jColors[_colorIndex] : textColor),
+                    MenuItem(
+                      text: loc.about,
+                      onPressed: () {
+                        if (_menuIndex == 0) {
+                          _menuIndex = -1;
+                        } else {
+                          _menuIndex = 0;
+                        }
+                        setState(() {});
+                      },
+                      controller: aboutController,
+                      previousController: _menuIndex == -1 ? null : expansionControllers[_menuIndex],
+                      color: _menuIndex == 0 ? _jColors[_colorIndex] : textColor,
+                      children: [
+                        TextItem(text: loc.about_description, color: textColor),
+                      ],
+                    ),
+                    MenuItem(
+                      text: loc.experience,
+                      onPressed: () {
+                        if (_menuIndex == 1) {
+                          _menuIndex = -1;
+                        } else {
+                          _menuIndex = 1;
+                        }
+                        setState(() {});
+                      },
+                      controller: experienceController,
+                      previousController: _menuIndex == -1 ? null : expansionControllers[_menuIndex],
+                      color: _menuIndex == 1 ? _jColors[_colorIndex] : textColor,
+                      children: [
+                        ExperienceWidget(logo: VISA, role: loc.experience_visa, content: loc.experience_visa_desc, light: winter),
+                        ExperienceWidget(logo: winter ? CALSPAN_WHITE : CALSPAN_BLACK, role: loc.experience_calspan, content: loc.experience_calspan_desc, light: winter),
+                        ExperienceWidget(logo: COACHMEPLUS, role: loc.experience_coachmeplus, content: loc.experience_coachmeplus_desc, light: winter),
+                      ],
+                    ),
+                    MenuItem(
+                      text: loc.projects,
+                      onPressed: () {
+                        if (_menuIndex == 2) {
+                          _menuIndex = -1;
+                        } else {
+                          _menuIndex = 2;
+                        }
+                        setState(() {});
+                      },
+                      controller: projectsController,
+                      previousController: _menuIndex == -1 ? null : expansionControllers[_menuIndex],
+                      color: _menuIndex == 2 ? _jColors[_colorIndex] : textColor,
+                      children: const [],
+                    ),
+                    MenuItem(
+                      text: loc.photos,
+                      onPressed: () {
+                        if (_menuIndex == 3) {
+                          _menuIndex = -1;
+                        } else {
+                          _menuIndex = 3;
+                        }
+                        setState(() {});
+                      },
+                      controller: photosController,
+                      previousController: _menuIndex == -1 ? null : expansionControllers[_menuIndex],
+                      color: _menuIndex == 3 ? _jColors[_colorIndex] : textColor,
+                      children: const [],
+                    ),
                     const Spacer3(),
                   ]
                 ),
@@ -216,18 +242,38 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
 class MenuItem extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
+  final ExpansionTileController controller;
+  final ExpansionTileController? previousController;
   final Color? color;
+  final List<Widget> children;
 
-  const MenuItem({required this.text, required this.onPressed, this.color, super.key});
+  const MenuItem({required this.text, required this.onPressed, required this.controller, this.previousController, this.color, required this.children, super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const Spacer2(),
-        ColoredTextButton(text: text, onPressed: onPressed, color: color),
-      ]
-    );
+    return Column(children: [
+      const Spacer1(),
+      Theme(
+        data: Theme.of(context).copyWith(
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+          hoverColor: Colors.transparent,
+        ),
+        child: ExpansionTile(
+          title: MenuText(text: text, color: color),
+          controller: controller,
+          shape: const Border(),
+          trailing: const SizedBox(),
+          onExpansionChanged: (value) {
+            if (previousController != null) {
+              previousController!.collapse();
+            }
+            onPressed();
+          },
+          children: children,
+        ),
+      ),
+    ]);
   }
 }
 
@@ -239,21 +285,16 @@ class TextItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const Spacer2(),
-        Row(children: [
-          Expanded(
-            child: Center(
-              child: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 700), 
-                child: BodyText(text: text, color: color),
-              ),
-            ),
+    return Row(children: [
+      Expanded(
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 700), 
+            child: BodyText(text: text, color: color),
           ),
-        ]),
-      ]
-    );
+        ),
+      ),
+    ]);
   }
 }
 
@@ -318,6 +359,82 @@ class SocialLink extends StatelessWidget {
       icon: SvgPicture.asset(logo, width: 40, colorFilter: ColorFilter.mode(color, BlendMode.srcIn)),
     );
   }
+}
+
+class NameWidget extends StatefulWidget {
+  final AppLocalizations loc;
+  final VoidCallback onPressed;
+  final Color textColor;
+  final int colorIndex;
+
+  const NameWidget({required this.loc, required this.onPressed, required this.textColor, required this.colorIndex, super.key});
+
+  @override
+  NameWidgetState createState() => NameWidgetState();
+}
+
+class NameWidgetState extends State<NameWidget> with TickerProviderStateMixin {
+  late final AnimationController _controller;
+  late final Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 100),
+      vsync: this,
+    );
+    _animation = Tween(begin: -5.0, end: 5.0).animate(_controller)
+      ..addListener(() {
+        setState(() {});
+      });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: widget.onPressed,
+      onHover: (value) {
+        if (value) {
+          _controller.forward(from: 0);
+        } else {
+          _controller.reverse();
+        }
+      },
+      hoverColor: Colors.transparent,
+      splashColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      child: Transform.translate(
+        offset: Offset(_animation.value, 0),
+        child:  RichText(
+          text: TextSpan(
+            children: <TextSpan>[
+              TextSpan(text: widget.loc.first_name, style: Theme.of(context).textTheme.displayLarge!.copyWith(color: widget.textColor)),
+              TextSpan(text: widget.loc.middle_name, style: Theme.of(context).textTheme.displayLarge!.copyWith(color: _jColors[widget.colorIndex])),
+              TextSpan(text: widget.loc.last_name, style: Theme.of(context).textTheme.displayLarge!.copyWith(color: widget.textColor)),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+  /**
+   Center(
+      child: RotationTransition(
+        turns: _animation,
+        child: const Padding(
+          padding: EdgeInsets.all(8.0),
+          child: FlutterLogo(size: 150.0),
+        ),
+      ),
+    );
+   */
 }
 
 class Snowfall extends StatefulWidget {

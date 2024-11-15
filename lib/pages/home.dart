@@ -259,7 +259,17 @@ class MenuItem extends StatelessWidget {
           hoverColor: Colors.transparent,
         ),
         child: ExpansionTile(
-          title: MenuText(text: text, color: color),
+          title: Row(children: [SlideAnimation(
+            onPressed: () {
+              if (controller.isExpanded) {
+                controller.collapse();
+              } else {
+                controller.expand();
+              }
+            },
+            child: MenuText(text: text, color: color),
+          ),]),
+          enabled: false,
           controller: controller,
           shape: const Border(),
           trailing: const SizedBox(),
@@ -360,7 +370,7 @@ class SocialLink extends StatelessWidget {
   }
 }
 
-class NameWidget extends StatefulWidget {
+class NameWidget extends StatelessWidget {
   final AppLocalizations loc;
   final VoidCallback onPressed;
   final Color textColor;
@@ -369,71 +379,20 @@ class NameWidget extends StatefulWidget {
   const NameWidget({required this.loc, required this.onPressed, required this.textColor, required this.colorIndex, super.key});
 
   @override
-  NameWidgetState createState() => NameWidgetState();
-}
-
-class NameWidgetState extends State<NameWidget> with TickerProviderStateMixin {
-  late final AnimationController _controller;
-  late final Animation<double> _animation;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      duration: const Duration(milliseconds: 100),
-      vsync: this,
-    );
-    _animation = Tween(begin: -5.0, end: 5.0).animate(_controller)
-      ..addListener(() {
-        setState(() {});
-      });
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: widget.onPressed,
-      onHover: (value) {
-        if (value) {
-          _controller.forward(from: 0);
-        } else {
-          _controller.reverse();
-        }
-      },
-      hoverColor: Colors.transparent,
-      splashColor: Colors.transparent,
-      highlightColor: Colors.transparent,
-      child: Transform.translate(
-        offset: Offset(_animation.value, 0),
-        child:  RichText(
-          text: TextSpan(
-            children: <TextSpan>[
-              TextSpan(text: widget.loc.first_name, style: Theme.of(context).textTheme.displayLarge!.copyWith(color: widget.textColor)),
-              TextSpan(text: widget.loc.middle_name, style: Theme.of(context).textTheme.displayLarge!.copyWith(color: _jColors[widget.colorIndex])),
-              TextSpan(text: widget.loc.last_name, style: Theme.of(context).textTheme.displayLarge!.copyWith(color: widget.textColor)),
-            ],
-          ),
+    return SlideAnimation(
+      onPressed: onPressed,
+      child:  RichText(
+        text: TextSpan(
+          children: <TextSpan>[
+            TextSpan(text: loc.first_name, style: Theme.of(context).textTheme.displayLarge!.copyWith(color: textColor)),
+            TextSpan(text: loc.middle_name, style: Theme.of(context).textTheme.displayLarge!.copyWith(color: _jColors[colorIndex])),
+            TextSpan(text: loc.last_name, style: Theme.of(context).textTheme.displayLarge!.copyWith(color: textColor)),
+          ],
         ),
       ),
     );
   }
-  /**
-   Center(
-      child: RotationTransition(
-        turns: _animation,
-        child: const Padding(
-          padding: EdgeInsets.all(8.0),
-          child: FlutterLogo(size: 150.0),
-        ),
-      ),
-    );
-   */
 }
 
 class Snowfall extends StatefulWidget {

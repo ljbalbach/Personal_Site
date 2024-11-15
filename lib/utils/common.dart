@@ -115,3 +115,61 @@ class ColoredTextButtonState extends State<ColoredTextButton> {
     );
   }
 }
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~
+// ANIMATIONS
+
+class SlideAnimation extends StatefulWidget {
+  final VoidCallback onPressed;
+  final Widget child;
+
+  const SlideAnimation({required this.onPressed, required this.child, super.key});
+
+  @override
+  SlideAnimationState createState() => SlideAnimationState();
+}
+
+class SlideAnimationState extends State<SlideAnimation> with TickerProviderStateMixin {
+  late final AnimationController _controller;
+  late final Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 100),
+      vsync: this,
+    );
+    _animation = Tween(begin: -5.0, end: 5.0).animate(_controller)
+      ..addListener(() {
+        setState(() {});
+      });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: widget.onPressed,
+      onHover: (value) {
+        if (value) {
+          _controller.forward(from: 0);
+        } else {
+          _controller.reverse();
+        }
+      },
+      hoverColor: Colors.transparent,
+      splashColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      child: Transform.translate(
+        offset: Offset(_animation.value, 0),
+        child: widget.child,
+      ),
+    );
+  }
+}

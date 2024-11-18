@@ -45,6 +45,18 @@ class MenuText extends StatelessWidget {
   }
 }
 
+class SubtitleText extends StatelessWidget {
+  final String text;
+  final Color? color;
+
+  const SubtitleText({required this.text, this.color, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(text, style: color == null ? Theme.of(context).textTheme.bodyMedium : Theme.of(context).textTheme.bodyMedium!.copyWith(color: color));
+  }
+}
+
 class BodyText extends StatelessWidget {
   final String text;
   final Color? color;
@@ -53,7 +65,7 @@ class BodyText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(text, style: color == null ? Theme.of(context).textTheme.bodyMedium : Theme.of(context).textTheme.bodyMedium!.copyWith(color: color));
+    return Text(text, style: color == null ? Theme.of(context).textTheme.displaySmall : Theme.of(context).textTheme.displaySmall!.copyWith(color: color));
   }
 }
 
@@ -111,6 +123,36 @@ class ColoredTextButtonState extends State<ColoredTextButton> {
         },
         onPressed: widget.onPressed,
         child: MenuText(text: widget.text, color: widget.color),
+      ),
+    );
+  }
+}
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~
+// CONTAINERS
+
+class RoundedContainer extends StatelessWidget {
+  final Widget child;
+  final bool light;
+
+  const RoundedContainer({required this.child, this.light = true, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(minWidth: 740, maxWidth: 740), 
+        child: Padding(
+          padding: const EdgeInsets.only(top: 25),
+          child: Container(
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: light ? Colors.black : Colors.white,
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: child,
+          ),
+        ),
       ),
     );
   }

@@ -174,7 +174,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
                       previousController: _menuIndex == -1 ? null : expansionControllers[_menuIndex],
                       color: _menuIndex == 0 ? _jColors[_colorIndex] : textColor,
                       children: [
-                        TextItem(text: loc.about_description, color: textColor),
+                        TextItem(text: loc.about_description, light: winter),
                       ],
                     ),
                     MenuItem(
@@ -191,9 +191,9 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
                       previousController: _menuIndex == -1 ? null : expansionControllers[_menuIndex],
                       color: _menuIndex == 1 ? _jColors[_colorIndex] : textColor,
                       children: [
-                        ExperienceWidget(logo: VISA, role: loc.experience_visa, content: loc.experience_visa_desc, light: winter),
-                        ExperienceWidget(logo: winter ? CALSPAN_WHITE : CALSPAN_BLACK, role: loc.experience_calspan, content: loc.experience_calspan_desc, light: winter),
-                        ExperienceWidget(logo: COACHMEPLUS, role: loc.experience_coachmeplus, content: loc.experience_coachmeplus_desc, light: winter),
+                        ExperienceWidget(logo: VISA, role: loc.experience_visa, dates: loc.experience_visa_dates, content: loc.experience_visa_desc, light: winter),
+                        ExperienceWidget(logo: winter ? CALSPAN_WHITE : CALSPAN_BLACK, role: loc.experience_calspan, dates: loc.experience_calspan_dates, content: loc.experience_calspan_desc, light: winter),
+                        ExperienceWidget(logo: COACHMEPLUS, role: loc.experience_coachmeplus, dates: loc.experience_coachmeplus_dates, content: loc.experience_coachmeplus_desc, light: winter),
                       ],
                     ),
                     MenuItem(
@@ -288,64 +288,50 @@ class MenuItem extends StatelessWidget {
 
 class TextItem extends StatelessWidget {
   final String text;
-  final Color? color;
+  final bool light;
 
-  const TextItem({required this.text, this.color, super.key});
+  const TextItem({required this.text, this.light = true, super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Row(children: [
-      Expanded(
-        child: Center(
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 700), 
-            child: BodyText(text: text, color: color),
-          ),
-        ),
-      ),
-    ]);
+    return RoundedContainer(
+      light: light,
+      child: SubtitleText(text: text, color: light ? Colors.white : Colors.black),
+    );
   }
 }
 
 class ExperienceWidget extends StatelessWidget {
   final String logo;
   final String role;
+  final String dates;
   final String content;
   final bool light;
 
-  const ExperienceWidget({required this.logo, required this.role, required this.content, this.light = true, super.key});
+  const ExperienceWidget({required this.logo, required this.role, required this.dates, required this.content, this.light = true, super.key});
 
   @override
   Widget build(BuildContext context) {
     Color textColor = light ? Colors.white : Colors.black;
 
-    return Center(child: ConstrainedBox(
-      constraints: const BoxConstraints(maxWidth: 700), 
-      child: Padding(
-        padding: const EdgeInsets.only(top: 25),
-        child: Container(
-          padding: const EdgeInsets.all(20),
-          decoration: BoxDecoration(
-            color: light ? Colors.black : Colors.white,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+    return RoundedContainer(
+      light: light,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Wrap(
             children: [
-              Wrap(
-                children: [
-                  Image.asset(logo, height: 30, fit: BoxFit.cover),
-                  const Spacer1(),
-                  BodyText(text: role, color: textColor),
-                ],
-              ),
-              const SizedBox(height: 10),
-              BodyText(text: content, color: textColor),
+              Image.asset(logo, height: 30, fit: BoxFit.cover),
+              const Spacer1(),
+              SubtitleText(text: role, color: textColor),
             ],
           ),
-        ),
+          SubtitleText(text: dates, color: textColor),
+          const SizedBox(height: 10),
+          BodyText(text: content, color: textColor),
+        ],
       ),
-    ));
+    );
   }
 }
 

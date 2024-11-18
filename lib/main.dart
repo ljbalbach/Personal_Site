@@ -36,14 +36,15 @@ class MyApp extends StatelessWidget {
                 fontSize: 72,
                 fontWeight: FontWeight.bold,
               ),
-              // ···
               titleLarge: GoogleFonts.caveatBrush(
                 fontSize: 40,
               ),
               bodyMedium: GoogleFonts.caveatBrush(
                 fontSize: 23,
               ),
-              displaySmall: GoogleFonts.pacifico(),
+              displaySmall: GoogleFonts.caveatBrush(
+                fontSize: 21,
+              ),
             ),
           ),
           home: const Directionality(

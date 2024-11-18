@@ -11,10 +11,13 @@
     "experience": "Experience",
     "experience_visa": "Graduate Software Engineer",
     "experience_visa_desc": "• Full stack agile development in Java, Flutter, Python, Svelte, and SQL\n• Designed, developed, and delivered major sections of VisaGO - the first direct-to-consumer facing Visa app with digital issuance and the first to achieve over 150,000 downloads within 90 days\n• Integrated with ChatGPT on multiple internal projects to speed up other teams’ workflows",
+    "experience_visa_dates": "Sep 2023 - Present",
     "experience_calspan": "Software Engineering Intern",
     "experience_calspan_desc": "• Designed & delivered a GUI in C++ for running scripts in a flight simulator, including XML customization\n• Tested cockpit emulators and software integration on Learjets, Gulfstreams, and the X-62 fighter jet",
+    "experience_calspan_dates": "May 2022 - Aug 2022",
     "experience_coachmeplus": "Junior Software Developer",
     "experience_coachmeplus_desc": "• Worked closely with Senior Developers to develop front end modules in current production release\n• Shipped PHP, HTML, and CSS features, and tested web applications locally and through TestFlight",
+    "experience_coachmeplus_dates": "Jun 2020 - May 2022",
     "projects": "Projects",
     "photos": "Photos"
 }

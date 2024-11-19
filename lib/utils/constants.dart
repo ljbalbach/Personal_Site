@@ -15,5 +15,6 @@ const String CALSPAN_BLACK = "logos/calspan_black.png";
 const String CALSPAN_WHITE = "logos/calspan_white.png";
 const String COACHMEPLUS = "logos/coachmeplus.png";
 
-//PROJECTS
+//ASSET FOLDERS
 const String PROJECTS = "projects/";
+const String PHOTOS = "photos/";

@@ -131,6 +131,22 @@ class ColoredTextButtonState extends State<ColoredTextButton> {
 // ~~~~~~~~~~~~~~~~~~~~~~~~~
 // CONTAINERS
 
+class CenteredContainer extends StatelessWidget {
+  final Widget child;
+
+  const CenteredContainer({required this.child, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(minWidth: 740, maxWidth: 740), 
+        child: child,
+      ),
+    );
+  }
+}
+
 class RoundedContainer extends StatelessWidget {
   final Widget child;
   final bool light;
@@ -139,19 +155,16 @@ class RoundedContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: ConstrainedBox(
-        constraints: const BoxConstraints(minWidth: 740, maxWidth: 740), 
-        child: Padding(
-          padding: const EdgeInsets.only(top: 25),
-          child: Container(
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              color: light ? Colors.black : Colors.white,
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: child,
+    return CenteredContainer(
+      child: Padding(
+        padding: const EdgeInsets.only(top: 25),
+        child: Container(
+          padding: const EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            color: light ? Colors.black : Colors.white,
+            borderRadius: BorderRadius.circular(8),
           ),
+          child: child,
         ),
       ),
     );

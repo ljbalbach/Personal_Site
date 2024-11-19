@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_starter/containers/default_container.dart';
+import 'package:flutter_starter/containers/photo_grid.dart';
 import 'package:flutter_starter/utils/common.dart';
 import 'package:flutter_starter/utils/constants.dart';
 import 'package:flutter_svg/svg.dart';
@@ -210,7 +211,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
                       previousController: _menuIndex == -1 ? null : expansionControllers[_menuIndex],
                       color: _menuIndex == 2 ? _jColors[_colorIndex] : textColor,
                       children: [
-                        ProjectsWidget(light: winter),
+                        SinglePhotoGridWidget(folder: PROJECTS, itemCount: 2, light: winter),
                       ],
                     ),
                     MenuItem(
@@ -226,7 +227,9 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
                       controller: photosController,
                       previousController: _menuIndex == -1 ? null : expansionControllers[_menuIndex],
                       color: _menuIndex == 3 ? _jColors[_colorIndex] : textColor,
-                      children: const [],
+                      children: [
+                        StaggeredPhotoGridWidget(folder: PHOTOS, itemCount: 5, light: winter),
+                      ],
                     ),
                     const Spacer3(),
                   ]
@@ -333,75 +336,6 @@ class ExperienceWidget extends StatelessWidget {
           const SizedBox(height: 10),
           BodyText(text: content, color: textColor),
         ],
-      ),
-    );
-  }
-}
-
-class ProjectsWidget extends StatelessWidget {
-  final bool light;
-
-  const ProjectsWidget({required this.light, super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: ConstrainedBox(
-        constraints: const BoxConstraints(minWidth: 740, maxWidth: 740), 
-        child: GridView.builder(
-          physics: const NeverScrollableScrollPhysics(), // disable scrolling
-          shrinkWrap: true, // allow the GridView to take the space of its children
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 1,
-            mainAxisSpacing: 20,
-            childAspectRatio: 3 / 2.1,
-          ),
-          itemCount: 2,
-          itemBuilder: (context, index) {
-            return ClipRRect(
-              borderRadius: BorderRadius.circular(25),
-              child: MouseRegion(
-                cursor: SystemMouseCursors.click,
-                child: GestureDetector(
-                  onTap: () {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return Dialog(
-                          child: Stack(
-                            children: [
-                              Image.asset("${PROJECTS}project${index + 1}.png", fit: BoxFit.cover),
-                              Positioned(
-                                top: 10,
-                                right: 10,
-                                child: RoundButton(
-                                  text: "X",
-                                  textColor: light ? Colors.white : Colors.black,
-                                  backgroundColor: light ? Colors.black : Colors.white,
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                    );
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage("${PROJECTS}project${index + 1}.png"),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            );
-          },
-        ),
       ),
     );
   }

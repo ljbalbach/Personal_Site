@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_starter/utils/common.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:flutter_starter/utils/constants.dart';
 
 class SinglePhotoGridWidget extends StatelessWidget {
   final String folder;
@@ -23,7 +24,7 @@ class SinglePhotoGridWidget extends StatelessWidget {
         ),
         itemCount: itemCount,
         itemBuilder: (context, index) {
-          return OpenableImageWidget(image: "${folder}image${index + 1}.jpeg", light: light);
+          return OpenableImageWidget(image: "image${index + 1}.jpeg", folder: folder, light: light);
         },
       ),
     );
@@ -48,7 +49,7 @@ class StaggeredPhotoGridWidget extends StatelessWidget {
         mainAxisSpacing: 4,
         crossAxisSpacing: 4,
         itemBuilder: (context, index) {
-          return OpenableImageWidget(image: "${folder}image${index + 1}.jpeg", light: light);
+          return OpenableImageWidget(image: "image${index + 1}.jpeg", folder: folder, light: light);
         },
       ),
     );
@@ -57,9 +58,10 @@ class StaggeredPhotoGridWidget extends StatelessWidget {
 
 class OpenableImageWidget extends StatelessWidget {
   final String image;
+  final String folder;
   final bool light;
 
-  const OpenableImageWidget({required this.image, this.light = true, super.key});
+  const OpenableImageWidget({required this.image, required this.folder, this.light = true, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +78,7 @@ class OpenableImageWidget extends StatelessWidget {
                   backgroundColor: Colors.transparent,
                   child: Stack(
                     children: [
-                      Image.asset(image, fit: BoxFit.cover),
+                      Image.asset(folder + HIGH_QUALITY + image, fit: BoxFit.cover),
                       Positioned(
                         top: 10,
                         right: 10,
@@ -96,8 +98,8 @@ class OpenableImageWidget extends StatelessWidget {
             );
           },
           child: Image.asset(
-            image,
-            fit: BoxFit.cover, // Adjusts the image to cover the available space
+            folder + image,
+            fit: BoxFit.cover,
           ),
         ),
       ),

@@ -18,3 +18,4 @@ const String COACHMEPLUS = "logos/coachmeplus.png";
 //ASSET FOLDERS
 const String PROJECTS = "projects/";
 const String PHOTOS = "photos/";
+const String HIGH_QUALITY = "high_quality/";

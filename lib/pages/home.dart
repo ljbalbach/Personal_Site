@@ -232,7 +232,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
                       previousController: _menuIndex == -1 ? null : expansionControllers[_menuIndex],
                       color: _menuIndex == 3 ? _jColors[_colorIndex] : textColor,
                       children: [
-                        StaggeredPhotoGridWidget(folder: PHOTOS, itemCount: 5, light: winter),
+                        StaggeredPhotoGridWidget(folder: PHOTOS, itemCount: 10, light: winter),
                       ],
                     ),
                     const Spacer3(),

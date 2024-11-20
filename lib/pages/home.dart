@@ -37,6 +37,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
   int _colorIndex = 0;
   int _menuIndex = -1;
   bool winter = true;
+  bool preloadWinter = true;
   bool monoTone = false;
 
   @override
@@ -77,26 +78,28 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
       lightMode: winter,
       background: Stack(
         children: [
-          Opacity(
-            opacity: !monoTone && !winter ? 1 : 0,
-            child: Image.asset(
-              SUMMER,
-              fit: BoxFit.cover,
-              alignment: Alignment.center,
-              width: double.infinity,
-              height: double.infinity,
+          if (!preloadWinter || !winter)
+            Opacity(
+              opacity: !monoTone && !winter ? 1 : 0,
+              child: Image.asset(
+                SUMMER,
+                fit: BoxFit.cover,
+                alignment: Alignment.center,
+                width: double.infinity,
+                height: double.infinity,
+              ),
             ),
-          ),
-          Opacity(
-            opacity: !monoTone && winter ? 1 : 0,
-            child: Image.asset(
-              WINTER,
-              fit: BoxFit.cover,
-              alignment: Alignment.center,
-              width: double.infinity,
-              height: double.infinity,
+          if (preloadWinter || winter)
+            Opacity(
+              opacity: !monoTone && winter ? 1 : 0,
+              child: Image.asset(
+                WINTER,
+                fit: BoxFit.cover,
+                alignment: Alignment.center,
+                width: double.infinity,
+                height: double.infinity,
+              ),
             ),
-          ),
         ],
       ),
       bottomLeft: monoTone ? Container(
@@ -111,15 +114,16 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
       ) : null,
       bottomRight: GestureDetector(
         onTap: () {
-          setState(() {
-            // Update the end value for the next animation based on the current winter state
-            double endRotation = winter ? 7 * pi : 8 * pi; // 5.5 for upside down, 6.5 for right side up
-            _seasonsImageRotationAnimation = Tween<double>(begin: winter ? 0 : pi, end: endRotation).animate(
-              CurvedAnimation(parent: _animationController, curve: Curves.easeOut)
-            );
-            _animationController.reset();
-            _animationController.forward();
-          });
+          preloadWinter = !preloadWinter;
+          setState(() {});
+
+          double endRotation = winter ? 7 * pi : 8 * pi; // 5.5 for upside down, 6.5 for right side up
+          _seasonsImageRotationAnimation = Tween<double>(begin: winter ? 0 : pi, end: endRotation).animate(
+            CurvedAnimation(parent: _animationController, curve: Curves.easeOut)
+          );
+          _animationController.reset();
+          _animationController.forward();
+          setState(() {});
         },
         child: SizedBox(
           width: 150,
@@ -142,7 +146,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
       ),
       body: Stack(
         children: [
-          if (winter) const Snowfall(),
+          if (winter && !monoTone) const Snowfall(),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
             child: Column(

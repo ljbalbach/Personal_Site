@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_starter/utils/common.dart';
-import 'package:flutter_starter/utils/constants.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class SinglePhotoGridWidget extends StatelessWidget {

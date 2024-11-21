@@ -157,6 +157,9 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
                   loc: loc,
                   onPressed: () {
                     monoTone = !monoTone;
+                    if (!monoTone) {
+                      _menuIndex = -1;
+                    }
                     setState(() {});
                   },
                   textColor: textColor,

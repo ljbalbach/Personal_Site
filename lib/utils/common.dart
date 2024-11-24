@@ -74,11 +74,10 @@ class BodyText extends StatelessWidget {
 
 class RoundButton extends StatelessWidget {
   final VoidCallback onPressed;
-  final String text;
-  final Color textColor;
   final Color backgroundColor;
+  final Widget child;
 
-  const RoundButton({required this.onPressed, required this.text, this.textColor = Colors.black, this.backgroundColor = Colors.white, super.key});
+  const RoundButton({required this.onPressed, this.backgroundColor = Colors.white, required this.child, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +90,7 @@ class RoundButton extends StatelessWidget {
         shadowColor: MaterialStateProperty.all<Color>(backgroundColor),
         elevation: MaterialStateProperty.all<double>(0.1),
       ), 
-      child: Text(text, style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: textColor)),
+      child: child,
     );
   }
 }
@@ -148,10 +147,10 @@ class CenteredContainer extends StatelessWidget {
 }
 
 class RoundedContainer extends StatelessWidget {
-  final Widget child;
+  final List<Widget> children;
   final bool light;
 
-  const RoundedContainer({required this.child, this.light = true, super.key});
+  const RoundedContainer({required this.children, this.light = true, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -164,7 +163,10 @@ class RoundedContainer extends StatelessWidget {
             color: light ? Colors.black : Colors.white,
             borderRadius: BorderRadius.circular(8),
           ),
-          child: child,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: children,
+          ),
         ),
       ),
     );

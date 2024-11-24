@@ -6,18 +6,26 @@
 
     "@_MENU_ITEMS": {},
 
+    "@_ABOUT": {},
     "about": "About",
-    "about_description": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?",
+    "about_description": "I am someone who likes to be curious – take a new course, learn a new sport, play a new instrument. For some reason it doesn’t stop there; it needs to be as weird as possible. If I have heard of something, or know someone else has it, I become uninterested. From the purple jackets I wear, to the songs I listen to, to the software I like to make; It all needs to be exciting, unique, and done the right way, otherwise why bother. I am an avid pianist, traveler, kiteboarder, SCUBA diver, backcountry alpine skier, mountain climber, and anything else I can get my hands on. I speak Spanish for the most part – mainly to find new food to try. I love new things, but still somehow love coming back to my routine, my home, my friends, and my family.\n\nI don’t believe that my intelligence or talent have been instrumental bringing me to where I am today. For me, it’s my curiosity that compels me to push forward. While I may have the ability to do the research and write a thorough paper on Stalinism, my curiosity implores me to do something a bit more captivating. No offence meant toward anyone who has spent their life on Stalinism, but personally, I would rather rake cut grass into three perfect piles. In recent time, software engineers are no longer scarce, but anyone can build a website. My need for an answer forces me to be more inventive and have more fun. Given the time, curiosity will create something far more interesting than raw skill (not that I’m completely lacking in that area). This page is the perfect example of my point. While yes, I could have made the same personal site that everyone does, I find that boring and uninteresting. Quite frankly, I don’t think I could even finish one – I would probably end up fading away into something a bit more exciting, like lunch.",
+
+    "@_EXPERIENCE": {},
     "experience": "Experience",
-    "experience_visa": "Graduate Software Engineer",
+    "experience_visa": "Graduate Software Engineer | Sep 2023 - Present",
     "experience_visa_desc": "• Full stack agile development in Java, Flutter, Python, Svelte, and SQL\n• Designed, developed, and delivered major sections of VisaGO - the first direct-to-consumer facing Visa app with digital issuance and the first to achieve over 150,000 downloads within 90 days\n• Integrated with ChatGPT on multiple internal projects to speed up other teams’ workflows",
-    "experience_visa_dates": "Sep 2023 - Present",
-    "experience_calspan": "Software Engineering Intern",
+    "experience_calspan": "Software Engineering Intern | May 2022 - Aug 2022",
     "experience_calspan_desc": "• Designed & delivered a GUI in C++ for running scripts in a flight simulator, including XML customization\n• Tested cockpit emulators and software integration on Learjets, Gulfstreams, and the X-62 fighter jet",
-    "experience_calspan_dates": "May 2022 - Aug 2022",
-    "experience_coachmeplus": "Junior Software Developer",
+    "experience_coachmeplus": "Junior Software Developer | Jun 2020 - May 2022",
     "experience_coachmeplus_desc": "• Worked closely with Senior Developers to develop front end modules in current production release\n• Shipped PHP, HTML, and CSS features, and tested web applications locally and through TestFlight",
-    "experience_coachmeplus_dates": "Jun 2020 - May 2022",
+
+    "@_PROJECTS": {},
     "projects": "Projects",
+    "project_1_title": "The Kite Calculator",
+    "project_1_description": "Projects",
+    "project_2_title": "Virtual Dive Simulator",
+    "project_2_description": "Projects",
+
+    "@_PHOTOS": {},
     "photos": "Photos"
 }

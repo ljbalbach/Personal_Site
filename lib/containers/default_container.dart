@@ -39,10 +39,10 @@ class DefaultContainer extends StatelessWidget {
             child: Consumer<LocaleModel>(
               builder: (context, localeModel, child) =>
                 RoundButton(
-                  text: loc.language,
                   onPressed: () => localeModel.swap(),
                   backgroundColor: lightMode ? Colors.black : Colors.white,
-                  textColor: lightMode ? Colors.white : Colors.black),
+                  child: Text(loc.language, style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: lightMode ? Colors.white : Colors.black)),
+                ),
             ),
           ),
           if (bottomLeft != null)

@@ -6,15 +6,26 @@
 
     "@_MENU_ITEMS": {},
 
+    "@_ABOUT": {},
     "about": "Sobre",
-    "about_description": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?",
+    "about_description": "Soy una persona que le gusta ser curiosa: hacer un curso nuevo, aprender un deporte nuevo, tocar un instrumento nuevo. Por alguna razón no se detiene ahí; necesita ser lo más extraño posible. Si he oído hablar de algo, o sé que otra persona lo tiene, dejo de interesarme. Desde las chaquetas moradas que llevo hasta las canciones que escucho, pasando por el software que me gusta hacer; Todo tiene que ser emocionante, único y hecho de la manera correcta, si no, para qué molestarse. Soy un ávido pianista, viajero, practicante de kitesurf, buceador, esquiador alpino de travesía, alpinista y cualquier otra cosa que se me ponga por delante. Hablo español en su mayor parte - sobre todo para encontrar nueva comida para probar. Me encantan las cosas nuevas, pero me encanta volver a mi rutina, a mi casa, a mis amigos y a mi familia.\n\nNo creo que mi inteligencia o mi talento hayan sido decisivos para llevarme a donde estoy hoy. Para mí, es mi curiosidad la que me impulsa a seguir adelante. Aunque pueda tener la capacidad de investigar y escribir un artículo exhaustivo sobre el estalinismo, mi curiosidad me implora hacer algo un poco más cautivador. No quiero ofender a nadie que haya dedicado su vida al estalinismo, pero personalmente prefiero rastrillar la hierba cortada en tres montones perfectos. En los últimos tiempos, ya no escasean los ingenieros de software, sino que cualquiera puede construir un sitio web. Mi necesidad de una respuesta me obliga a ser más inventivo y a divertirme más. Si me dan tiempo, la curiosidad creará algo mucho más interesante que la habilidad bruta (no es que carezca por completo de ella). Esta página es el ejemplo perfecto. Aunque sí, podría haber hecho la misma página personal que hace todo el mundo, me parece aburrida y poco interesante. Francamente, creo que ni siquiera podría terminar una: probablemente acabaría desvaneciéndome en algo un poco más emocionante, como el almuerzo.",
+
+    "@_EXPERIENCE": {},
     "experience": "Experiencia",
-    "experience_visa": "Ingeniero diplomado de Software",
+    "experience_visa": "Ingeniero diplomado de Software | sep 2023 - Presente",
     "experience_visa_desc": "• Desarrollo ágil full stack en Java, Flutter, Python, Svelte, y SQL\n• Diseñó, desarrolló e impartió importantes secciones de VisaGO - la primera aplicación Visa con emisión digital dirigida directamente al consumidor y la primera en lograr más de 150.000 descargas en 90 días\n• Integración con ChatGPT en múltiples proyectos internos para agilizar los flujos de trabajo de otros equipos",
-    "experience_calspan": "Becario de Ingeniería de Software",
+    "experience_calspan": "Becario de Ingeniería de Software | may 2022 - ago 2022",
     "experience_calspan_desc": "• Diseño y entrega de una interfaz gráfica de usuario en C++ para ejecutar secuencias de comandos en un simulador de vuelo, incluida la personalización en XML\n• Probado emuladores de cabina e integración de software en Learjets, Gulfstreams y el caza X-62",
-    "experience_coachmeplus": "Desarrollador de software junior",
+    "experience_coachmeplus": "Desarrollador de software junior | jun 2020 - may 2022",
     "experience_coachmeplus_desc": "• Trabajó en estrecha colaboración con desarrolladores senior para desarrollar módulos frontales en la versión de producción actual\n• Envío de funciones PHP, HTML y CSS, y prueba de aplicaciones web localmente y a través de TestFlight",
+
+    "@_PROJECTS": {},
     "projects": "Proyectos",
+    "project_1_title": "La Calculadora de Cometas",
+    "project_1_description": "Projects",
+    "project_2_title": "Simulador Virtual de Buceo",
+    "project_2_description": "Projects",
+
+    "@_PHOTOS": {},
     "photos": "Fotos"
 }

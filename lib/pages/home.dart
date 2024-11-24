@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_starter/containers/default_container.dart';
 import 'package:flutter_starter/containers/photo_grid.dart';
+import 'package:flutter_starter/containers/rounded_text_container.dart';
 import 'package:flutter_starter/utils/common.dart';
 import 'package:flutter_starter/utils/constants.dart';
 import 'package:flutter_svg/svg.dart';
@@ -182,7 +183,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
                       previousController: _menuIndex == -1 ? null : expansionControllers[_menuIndex],
                       color: _menuIndex == 0 ? _jColors[_colorIndex] : textColor,
                       children: [
-                        TextItem(text: loc.about_description, light: winter),
+                        TextWidget(text: loc.about_description, light: winter),
                       ],
                     ),
                     MenuItem(
@@ -199,9 +200,9 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
                       previousController: _menuIndex == -1 ? null : expansionControllers[_menuIndex],
                       color: _menuIndex == 1 ? _jColors[_colorIndex] : textColor,
                       children: [
-                        ExperienceWidget(logo: VISA, role: loc.experience_visa, dates: loc.experience_visa_dates, content: loc.experience_visa_desc, light: winter),
-                        ExperienceWidget(logo: winter ? CALSPAN_WHITE : CALSPAN_BLACK, role: loc.experience_calspan, dates: loc.experience_calspan_dates, content: loc.experience_calspan_desc, light: winter),
-                        ExperienceWidget(logo: COACHMEPLUS, role: loc.experience_coachmeplus, dates: loc.experience_coachmeplus_dates, content: loc.experience_coachmeplus_desc, light: winter),
+                        ExperienceWidget(logo: VISA, role: loc.experience_visa, content: loc.experience_visa_desc, light: winter),
+                        ExperienceWidget(logo: winter ? CALSPAN_WHITE : CALSPAN_BLACK, role: loc.experience_calspan, content: loc.experience_calspan_desc, light: winter),
+                        ExperienceWidget(logo: COACHMEPLUS, role: loc.experience_coachmeplus, content: loc.experience_coachmeplus_desc, light: winter),
                       ],
                     ),
                     MenuItem(
@@ -218,7 +219,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
                       previousController: _menuIndex == -1 ? null : expansionControllers[_menuIndex],
                       color: _menuIndex == 2 ? _jColors[_colorIndex] : textColor,
                       children: [
-                        SinglePhotoGridWidget(folder: PROJECTS, itemCount: 2, light: winter),
+                        ProjectsWidget(folder: PROJECTS, itemCount: 2, loc: loc, light: winter),
                       ],
                     ),
                     MenuItem(
@@ -299,55 +300,6 @@ class MenuItem extends StatelessWidget {
   }
 }
 
-class TextItem extends StatelessWidget {
-  final String text;
-  final bool light;
-
-  const TextItem({required this.text, this.light = true, super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return RoundedContainer(
-      light: light,
-      child: SubtitleText(text: text, color: light ? Colors.white : Colors.black),
-    );
-  }
-}
-
-class ExperienceWidget extends StatelessWidget {
-  final String logo;
-  final String role;
-  final String dates;
-  final String content;
-  final bool light;
-
-  const ExperienceWidget({required this.logo, required this.role, required this.dates, required this.content, this.light = true, super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    Color textColor = light ? Colors.white : Colors.black;
-
-    return RoundedContainer(
-      light: light,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Wrap(
-            children: [
-              Image.asset(logo, height: 30, fit: BoxFit.cover),
-              const Spacer1(),
-              SubtitleText(text: role, color: textColor),
-            ],
-          ),
-          SubtitleText(text: dates, color: textColor),
-          const SizedBox(height: 10),
-          BodyText(text: content, color: textColor),
-        ],
-      ),
-    );
-  }
-}
-
 class SocialLink extends StatelessWidget {
   final String logo;
   final String link;
@@ -362,7 +314,7 @@ class SocialLink extends StatelessWidget {
       splashColor: Colors.transparent,
       highlightColor: Colors.transparent,
       onPressed: () async {
-        await  launchUrl(Uri.parse(link));
+        await launchUrl(Uri.parse(link));
       },
       icon: SvgPicture.asset(logo, width: 40, colorFilter: ColorFilter.mode(color, BlendMode.srcIn)),
     );

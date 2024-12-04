@@ -53,7 +53,7 @@ class SubtitleText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(text, style: color == null ? Theme.of(context).textTheme.bodyMedium : Theme.of(context).textTheme.bodyMedium!.copyWith(color: color));
+    return Text(text, style: color == null ? Theme.of(context).textTheme.displaySmall : Theme.of(context).textTheme.displaySmall!.copyWith(color: color));
   }
 }
 

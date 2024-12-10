@@ -127,8 +127,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
           setState(() {});
         },
         child: SizedBox(
-          width: 150,
-          height: 150,
+          height: MediaQuery.of(context).size.height / 5,
           child: MouseRegion(
             cursor: SystemMouseCursors.click,
             child: AnimatedBuilder(
@@ -316,7 +315,7 @@ class SocialLink extends StatelessWidget {
       onPressed: () async {
         await launchUrl(Uri.parse(link));
       },
-      icon: SvgPicture.asset(logo, width: 40, colorFilter: ColorFilter.mode(color, BlendMode.srcIn)),
+      icon: SvgPicture.asset(logo, height: MediaQuery.of(context).size.height / 22, colorFilter: ColorFilter.mode(color, BlendMode.src)),
     );
   }
 }

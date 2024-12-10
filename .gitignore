@@ -31,7 +31,6 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 .packages
-/build/
 
 # Symbolication related
 app.*.symbols
@@ -48,8 +47,7 @@ android/app/*.keystore
 android/local.properties
 
 # Build outputs
-build/
-*.log
+build/*.log
 
 # iOS
 ios/Flutter/Flutter.framework

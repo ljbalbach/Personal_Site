@@ -6,8 +6,8 @@ const String SUMMER = "backgrounds/summer.jpeg";
 const String SEASONS = "backgrounds/final_seasons.png";
 
 //SOCIALS
-const String GITHUB = "logos/github.svg";
-const String LINKEDIN = "logos/linkedin.svg";
+const String GITHUB = "logos/github.png";
+const String LINKEDIN = "logos/linkedin.png";
 
 //EXPERIENCE
 const String VISA = "logos/visa.png";

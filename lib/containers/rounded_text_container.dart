@@ -1,4 +1,3 @@
-import 'package:drop_cap_text/drop_cap_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_starter/containers/photo_grid.dart';
 import 'package:flutter_starter/utils/common.dart';
@@ -35,12 +34,17 @@ class ExperienceWidget extends StatelessWidget {
     return RoundedContainer(
       light: light,
       children: [
-        Wrap(
-          children: [
-            Image.asset(logo, height: 30, fit: BoxFit.cover),
-            const Spacer1(),
-            SubtitleText(text: role, color: light ? Colors.white : Colors.black),
-          ],
+        SizedBox(
+          width: double.infinity,
+          child: Wrap(
+            alignment: WrapAlignment.spaceBetween,
+            runAlignment: WrapAlignment.spaceBetween,
+            children: [
+              Image.asset(logo, height: 30, fit: BoxFit.cover),
+              const Spacer1(),
+              SubtitleText(text: role, color: light ? Colors.white : Colors.black),
+            ],
+          ),
         ),
         const Spacer1(),
         BodyText(text: content, color: textColor),
@@ -73,31 +77,37 @@ class ProjectWidget extends StatelessWidget {
     return RoundedContainer(
       light: light,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            SubtitleText(text: title, color: textColor),
-            if (link != null)
-              RoundButton(
-                backgroundColor: textColor,
-                onPressed: () async {
-                    await launchUrl(Uri.parse(link!));
-                  },
-                child: Icon(Icons.open_in_new_rounded, color: light ? Colors.black : Colors.white),
-              ),
-          ],
+        SizedBox(
+          width: double.infinity,
+          child: Wrap(
+            alignment: WrapAlignment.spaceBetween,
+            runAlignment: WrapAlignment.spaceBetween,
+            children: [
+              SubtitleText(text: title, color: textColor),
+              if (link != null)
+                RoundButton(
+                  backgroundColor: textColor,
+                  onPressed: () async {
+                      await launchUrl(Uri.parse(link!));
+                    },
+                  child: Icon(Icons.open_in_new_rounded, color: light ? Colors.black : Colors.white),
+                ),
+            ],
+          ),
         ),
         const Spacer1(),
-        DropCapText(
-          content,
-          style: Theme.of(context).textTheme.displaySmall!.copyWith(color: textColor),
-          dropCap: DropCap(
-            width: 300,
-            height: 200,
-            child: Padding(
-              padding: const EdgeInsets.only(right: 10),
-              child: OpenableImageWidget(image, folder: folder, light: light),
-            ),
+        RichText(
+          text: TextSpan(
+            children: [
+              WidgetSpan(child: Column(children: [
+                OpenableImageWidget(image, folder: folder, light: light),
+                const Spacer1(),
+              ])),
+              TextSpan(
+                text: content,
+                style: Theme.of(context).textTheme.displaySmall!.copyWith(color: textColor),
+              ),
+            ],
           ),
         ),
       ],

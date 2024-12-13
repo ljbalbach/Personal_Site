@@ -8,7 +8,6 @@ import 'package:flutter_starter/containers/photo_grid.dart';
 import 'package:flutter_starter/containers/rounded_text_container.dart';
 import 'package:flutter_starter/utils/common.dart';
 import 'package:flutter_starter/utils/constants.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 final List<Color> _jColors = [

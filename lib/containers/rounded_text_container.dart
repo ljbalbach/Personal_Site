@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_starter/containers/photo_grid.dart';
 import 'package:flutter_starter/utils/common.dart';
+import 'package:flutter_starter/model/theme_model.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:provider/provider.dart';
 
 class TextWidget extends StatelessWidget {
   final String text;
-  final bool light;
 
-  const TextWidget({required this.text, this.light = true, super.key});
+  const TextWidget({required this.text, super.key});
 
   @override
   Widget build(BuildContext context) {
     return RoundedContainer(
-      light: light,
-      children: [SubtitleText(text: text, color: light ? Colors.white : Colors.black)],
+      children: [SubtitleText(text: text, color: Provider.of<ThemeModel>(context).currentTheme.primaryColor)],
     );
   }
 }
@@ -23,16 +23,14 @@ class ExperienceWidget extends StatelessWidget {
   final String logo;
   final String role;
   final String content;
-  final bool light;
 
-  const ExperienceWidget({required this.logo, required this.role, required this.content, this.light = true, super.key});
+  const ExperienceWidget({required this.logo, required this.role, required this.content, super.key});
 
   @override
   Widget build(BuildContext context) {
-    Color textColor = light ? Colors.white : Colors.black;
+    var primaryColor = Provider.of<ThemeModel>(context).currentTheme.primaryColor;
 
     return RoundedContainer(
-      light: light,
       children: [
         SizedBox(
           width: double.infinity,
@@ -42,12 +40,12 @@ class ExperienceWidget extends StatelessWidget {
             children: [
               Image.asset(logo, height: 30, fit: BoxFit.cover),
               const Spacer1(),
-              SubtitleText(text: role, color: light ? Colors.white : Colors.black),
+              SubtitleText(text: role, color: primaryColor),
             ],
           ),
         ),
         const Spacer1(),
-        BodyText(text: content, color: textColor),
+        BodyText(text: content, color: primaryColor),
       ],
     );
   }
@@ -58,7 +56,6 @@ class ProjectWidget extends StatelessWidget {
   final String folder;
   final String title;
   final String content;
-  final bool light;
   final String? link;
 
   const ProjectWidget({
@@ -66,16 +63,15 @@ class ProjectWidget extends StatelessWidget {
     required this.folder,
     required this.title,
     required this.content,
-    this.light = true,
     this.link,
     super.key
   });
 
   @override
   Widget build(BuildContext context) {
-    Color textColor = light ? Colors.white : Colors.black;
+    var themeModel = Provider.of<ThemeModel>(context).currentTheme;
+    Color textColor = themeModel.primaryColor;
     return RoundedContainer(
-      light: light,
       children: [
         SizedBox(
           width: double.infinity,
@@ -86,11 +82,10 @@ class ProjectWidget extends StatelessWidget {
               SubtitleText(text: title, color: textColor),
               if (link != null)
                 RoundButton(
-                  backgroundColor: textColor,
                   onPressed: () async {
                       await launchUrl(Uri.parse(link!));
                     },
-                  child: Icon(Icons.open_in_new_rounded, color: light ? Colors.black : Colors.white),
+                  child: Icon(Icons.open_in_new_rounded, color: themeModel.secondaryHeaderColor),
                 ),
             ],
           ),
@@ -100,7 +95,7 @@ class ProjectWidget extends StatelessWidget {
           text: TextSpan(
             children: [
               WidgetSpan(child: Column(children: [
-                OpenableImageWidget(image, folder: folder, light: light),
+                OpenableImageWidget(image, folder: folder),
                 const Spacer1(),
               ])),
               TextSpan(
@@ -119,9 +114,8 @@ class ProjectsWidget extends StatelessWidget {
   final String folder;
   final AppLocalizations loc;
   final int itemCount;
-  final bool light;
 
-  const ProjectsWidget({required this.folder, required this.loc, this.itemCount = 0, this.light = true, super.key});
+  const ProjectsWidget({required this.folder, required this.loc, this.itemCount = 0, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -136,7 +130,6 @@ class ProjectsWidget extends StatelessWidget {
         folder: folder,
         title: projectTitles[i],
         content: projectDescriptions[i],
-        light: light,
         link: links[i],
       ));
     }

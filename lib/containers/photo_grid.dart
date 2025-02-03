@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_starter/utils/common.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_starter/utils/constants.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_starter/model/theme_model.dart';
 
 class StaggeredPhotoGridWidget extends StatelessWidget {
   final String folder;
   final int itemCount;
-  final bool light;
 
-  const StaggeredPhotoGridWidget({required this.folder, this.itemCount = 0, this.light = true, super.key});
+  const StaggeredPhotoGridWidget({required this.folder, this.itemCount = 0, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class StaggeredPhotoGridWidget extends StatelessWidget {
         mainAxisSpacing: 4,
         crossAxisSpacing: 4,
         itemBuilder: (context, index) {
-          return OpenableImageWidget("image${index + 1}.jpeg", folder: folder, light: light);
+          return OpenableImageWidget("image${index + 1}.jpeg", folder: folder);
         },
       ),
     );
@@ -31,9 +32,8 @@ class StaggeredPhotoGridWidget extends StatelessWidget {
 class OpenableImageWidget extends StatelessWidget {
   final String image;
   final String folder;
-  final bool light;
 
-  const OpenableImageWidget(this.image, {required this.folder, this.light = true, super.key});
+  const OpenableImageWidget(this.image, {required this.folder, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -55,11 +55,10 @@ class OpenableImageWidget extends StatelessWidget {
                         top: 10,
                         right: 10,
                         child: RoundButton(
-                          backgroundColor: light ? Colors.black : Colors.white,
                           onPressed: () {
                             Navigator.of(context).pop();
                           },
-                          child: Text("X", style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: light ? Colors.white : Colors.black)),
+                          child: Text("X", style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Provider.of<ThemeModel>(context).currentTheme.primaryColor)),
                         ),
                       ),
                     ],

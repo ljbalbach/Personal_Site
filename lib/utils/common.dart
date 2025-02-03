@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_starter/model/theme_model.dart';
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~
 // SPACERS
@@ -74,13 +76,14 @@ class BodyText extends StatelessWidget {
 
 class RoundButton extends StatelessWidget {
   final VoidCallback onPressed;
-  final Color backgroundColor;
   final Widget child;
 
-  const RoundButton({required this.onPressed, this.backgroundColor = Colors.white, required this.child, super.key});
+  const RoundButton({required this.onPressed, required this.child, super.key});
 
   @override
   Widget build(BuildContext context) {
+    var backgroundColor = Provider.of<ThemeModel>(context).currentTheme.secondaryHeaderColor;
+
     return TextButton(
       onPressed: onPressed,
       style: ButtonStyle(
@@ -148,9 +151,8 @@ class CenteredContainer extends StatelessWidget {
 
 class RoundedContainer extends StatelessWidget {
   final List<Widget> children;
-  final bool light;
 
-  const RoundedContainer({required this.children, this.light = true, super.key});
+  const RoundedContainer({required this.children, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -160,7 +162,7 @@ class RoundedContainer extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
-            color: light ? Colors.black : Colors.white,
+            color: Provider.of<ThemeModel>(context).currentTheme.secondaryHeaderColor,
             borderRadius: BorderRadius.circular(8),
           ),
           child: Column(

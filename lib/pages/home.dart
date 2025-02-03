@@ -8,6 +8,8 @@ import 'package:flutter_starter/containers/photo_grid.dart';
 import 'package:flutter_starter/containers/rounded_text_container.dart';
 import 'package:flutter_starter/utils/common.dart';
 import 'package:flutter_starter/utils/constants.dart';
+import 'package:flutter_starter/model/theme_model.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 final List<Color> _jColors = [
@@ -53,10 +55,10 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
     _seasonsImageRotationAnimation.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         winter = !winter;
-        setState(() {});
+        Provider.of<ThemeModel>(context, listen: false).toggleTheme();
       }
     });
-    _timer = Timer.periodic(const Duration(seconds: 10), (Timer t) {
+    _timer = Timer.periodic(const Duration(seconds: 7), (Timer t) {
       _colorIndex = (_colorIndex + 1).remainder(_jColors.length);
       setState(() {});
     });
@@ -70,12 +72,13 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    var themeModel = Provider.of<ThemeModel>(context).currentTheme;
+    var primaryColor = themeModel.primaryColor;
+    var secondaryColor = themeModel.secondaryHeaderColor;
     var loc = AppLocalizations.of(context);
-    Color textColor = winter ? Colors.black : Colors.white;
     List<ExpansionTileController> expansionControllers = [aboutController, experienceController, projectsController, photosController];
 
     return DefaultContainer(
-      lightMode: winter,
       background: Stack(
         children: [
           if (!preloadWinter || !winter)
@@ -104,12 +107,12 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
       ),
       bottomLeft: monoTone ? Container(
         decoration: BoxDecoration(
-          color: winter ? Colors.white : Colors.black,
+          color: primaryColor,
           borderRadius: BorderRadius.circular(15),
         ),
         child: Row(children: [
-          SocialLink(logo: GITHUB, link: "https://github.com/ljbalbach", color: textColor),
-          SocialLink(logo: LINKEDIN, link: "https://www.linkedin.com/in/lucas-balbach-950002108/", color: textColor),
+          SocialLink(logo: GITHUB, link: "https://github.com/ljbalbach", color: secondaryColor),
+          SocialLink(logo: LINKEDIN, link: "https://www.linkedin.com/in/lucas-balbach-950002108/", color: secondaryColor),
         ]),
       ) : null,
       bottomRight: GestureDetector(
@@ -161,7 +164,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
                     }
                     setState(() {});
                   },
-                  textColor: textColor,
+                  textColor: secondaryColor,
                   colorIndex: _colorIndex,
                 ),
                 if (monoTone) Column(
@@ -179,9 +182,9 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
                       },
                       controller: aboutController,
                       previousController: _menuIndex == -1 ? null : expansionControllers[_menuIndex],
-                      color: _menuIndex == 0 ? _jColors[_colorIndex] : textColor,
+                      color: _menuIndex == 0 ? _jColors[_colorIndex] : secondaryColor,
                       children: [
-                        TextWidget(text: loc.about_description, light: winter),
+                        TextWidget(text: loc.about_description),
                       ],
                     ),
                     MenuItem(
@@ -196,11 +199,11 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
                       },
                       controller: experienceController,
                       previousController: _menuIndex == -1 ? null : expansionControllers[_menuIndex],
-                      color: _menuIndex == 1 ? _jColors[_colorIndex] : textColor,
+                      color: _menuIndex == 1 ? _jColors[_colorIndex] : secondaryColor,
                       children: [
-                        ExperienceWidget(logo: VISA, role: loc.experience_visa, content: loc.experience_visa_desc, light: winter),
-                        ExperienceWidget(logo: winter ? CALSPAN_WHITE : CALSPAN_BLACK, role: loc.experience_calspan, content: loc.experience_calspan_desc, light: winter),
-                        ExperienceWidget(logo: COACHMEPLUS, role: loc.experience_coachmeplus, content: loc.experience_coachmeplus_desc, light: winter),
+                        ExperienceWidget(logo: VISA, role: loc.experience_visa, content: loc.experience_visa_desc),
+                        ExperienceWidget(logo: winter ? CALSPAN_WHITE : CALSPAN_BLACK, role: loc.experience_calspan, content: loc.experience_calspan_desc),
+                        ExperienceWidget(logo: COACHMEPLUS, role: loc.experience_coachmeplus, content: loc.experience_coachmeplus_desc),
                       ],
                     ),
                     MenuItem(
@@ -215,9 +218,9 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
                       },
                       controller: projectsController,
                       previousController: _menuIndex == -1 ? null : expansionControllers[_menuIndex],
-                      color: _menuIndex == 2 ? _jColors[_colorIndex] : textColor,
+                      color: _menuIndex == 2 ? _jColors[_colorIndex] : secondaryColor,
                       children: [
-                        ProjectsWidget(folder: PROJECTS, itemCount: 2, loc: loc, light: winter),
+                        ProjectsWidget(folder: PROJECTS, itemCount: 2, loc: loc),
                       ],
                     ),
                     MenuItem(
@@ -232,9 +235,9 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
                       },
                       controller: photosController,
                       previousController: _menuIndex == -1 ? null : expansionControllers[_menuIndex],
-                      color: _menuIndex == 3 ? _jColors[_colorIndex] : textColor,
-                      children: [
-                        StaggeredPhotoGridWidget(folder: PHOTOS, itemCount: 10, light: winter),
+                      color: _menuIndex == 3 ? _jColors[_colorIndex] : secondaryColor,
+                      children: const [
+                        StaggeredPhotoGridWidget(folder: PHOTOS, itemCount: 10),
                       ],
                     ),
                     const Spacer3(),
@@ -374,7 +377,7 @@ class SnowfallState extends State<Snowfall> with TickerProviderStateMixin {
     if (_snowflakes.isEmpty) {
       for (int i = 0; i < 150; i++) { // Increased snowflakes count
         _snowflakes.add(Snowflake(
-          x: Random().nextInt((MediaQuery.of(context).size.width.toInt() * 1.3).round()) + 0.0,
+          x: Random().nextInt((MediaQuery.of(context).size.width.toInt() * 1.5).round()) + 0.0,
           y: -i * 10,
           size: 2.0 + Random().nextInt(5), // Reduced max size
           speed: 0.5 + Random().nextDouble(),

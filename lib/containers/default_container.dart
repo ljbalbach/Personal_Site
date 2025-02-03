@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_starter/model/locale.dart';
 import 'package:flutter_starter/utils/common.dart';
+import 'package:flutter_starter/model/theme_model.dart';
 import 'package:provider/provider.dart';
 
 const _defaultPadding = EdgeInsets.all(15);
@@ -12,14 +13,13 @@ class DefaultContainer extends StatelessWidget {
   final Widget? background;
   final Widget? bottomLeft;
   final Widget? bottomRight;
-  final bool lightMode;
 
-  const DefaultContainer({required this.body, this.background, this.bottomLeft, this.bottomRight, this.lightMode = false, super.key});
+  const DefaultContainer({required this.body, this.background, this.bottomLeft, this.bottomRight, super.key});
 
   @override
   Widget build(BuildContext context) {
     var loc = AppLocalizations.of(context);
-    Color backgroundColor = lightMode ? Colors.white : Colors.black;
+    Color backgroundColor = Provider.of<ThemeModel>(context).currentTheme.primaryColor;
 
     return AnnotatedRegion(
       value: SystemUiOverlayStyle(statusBarColor: backgroundColor),
@@ -44,7 +44,6 @@ class DefaultContainer extends StatelessWidget {
                 builder: (context, localeModel, child) =>
                   RoundButton(
                     onPressed: () => localeModel.swap(),
-                    backgroundColor: lightMode ? Colors.black : Colors.white,
                     child: Text(loc.language, style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: backgroundColor)),
                   ),
               ),

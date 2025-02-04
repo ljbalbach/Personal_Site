@@ -8,6 +8,7 @@ import 'package:flutter_starter/containers/photo_grid.dart';
 import 'package:flutter_starter/containers/rounded_text_container.dart';
 import 'package:flutter_starter/utils/common.dart';
 import 'package:flutter_starter/utils/constants.dart';
+import 'package:flutter_starter/utils/snow.dart';
 import 'package:flutter_starter/model/theme_model.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -38,9 +39,9 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
   late Timer _timer;
   int _colorIndex = 0;
   int _menuIndex = -1;
-  bool winter = true;
-  bool preloadWinter = true;
-  bool monoTone = false;
+  bool _winter = true;
+  bool _preloadWinter = true;
+  bool _monoTone = false;
 
   @override
   void initState() {
@@ -54,8 +55,9 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
     );
     _seasonsImageRotationAnimation.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
-        winter = !winter;
+        _winter = !_winter;
         Provider.of<ThemeModel>(context, listen: false).toggleTheme();
+        setState(() {});
       }
     });
     _timer = Timer.periodic(const Duration(seconds: 7), (Timer t) {
@@ -72,18 +74,18 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    var themeModel = Provider.of<ThemeModel>(context).currentTheme;
-    var primaryColor = themeModel.primaryColor;
-    var secondaryColor = themeModel.secondaryHeaderColor;
-    var loc = AppLocalizations.of(context);
+    ThemeData themeModel = Provider.of<ThemeModel>(context).currentTheme;
+    Color primaryColor = themeModel.primaryColor;
+    Color secondaryColor = themeModel.secondaryHeaderColor;
+    AppLocalizations loc = AppLocalizations.of(context);
     List<ExpansionTileController> expansionControllers = [aboutController, experienceController, projectsController, photosController];
 
     return DefaultContainer(
       background: Stack(
         children: [
-          if (!preloadWinter || !winter)
+          if (!_preloadWinter || !_winter)
             Opacity(
-              opacity: !monoTone && !winter ? 1 : 0,
+              opacity: !_monoTone && !_winter ? 1 : 0,
               child: Image.asset(
                 SUMMER,
                 fit: BoxFit.cover,
@@ -92,9 +94,9 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
                 height: double.infinity,
               ),
             ),
-          if (preloadWinter || winter)
+          if (_preloadWinter || _winter)
             Opacity(
-              opacity: !monoTone && winter ? 1 : 0,
+              opacity: !_monoTone && _winter ? 1 : 0,
               child: Image.asset(
                 WINTER,
                 fit: BoxFit.cover,
@@ -105,7 +107,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
             ),
         ],
       ),
-      bottomLeft: monoTone ? Container(
+      bottomLeft: _monoTone ? Container(
         decoration: BoxDecoration(
           color: primaryColor,
           borderRadius: BorderRadius.circular(15),
@@ -117,11 +119,11 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
       ) : null,
       bottomRight: GestureDetector(
         onTap: () {
-          preloadWinter = !preloadWinter;
+          _preloadWinter = !_preloadWinter;
           setState(() {});
 
-          double endRotation = winter ? 7 * pi : 8 * pi; // 5.5 for upside down, 6.5 for right side up
-          _seasonsImageRotationAnimation = Tween<double>(begin: winter ? 0 : pi, end: endRotation).animate(
+          double endRotation = _winter ? 7 * pi : 8 * pi; // 5.5 for upside down, 6.5 for right side up
+          _seasonsImageRotationAnimation = Tween<double>(begin: _winter ? 0 : pi, end: endRotation).animate(
             CurvedAnimation(parent: _animationController, curve: Curves.easeOut)
           );
           _animationController.reset();
@@ -148,7 +150,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
       ),
       body: Stack(
         children: [
-          if (winter && !monoTone) const Snowfall(),
+          if (_winter && !_monoTone) const Snowfall(),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
             child: Column(
@@ -158,8 +160,8 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
                 NameWidget(
                   loc: loc,
                   onPressed: () {
-                    monoTone = !monoTone;
-                    if (!monoTone) {
+                    _monoTone = !_monoTone;
+                    if (!_monoTone) {
                       _menuIndex = -1;
                     }
                     setState(() {});
@@ -167,7 +169,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
                   textColor: secondaryColor,
                   colorIndex: _colorIndex,
                 ),
-                if (monoTone) Column(
+                if (_monoTone) Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     MenuItem(
@@ -202,7 +204,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
                       color: _menuIndex == 1 ? _jColors[_colorIndex] : secondaryColor,
                       children: [
                         ExperienceWidget(logo: VISA, role: loc.experience_visa, content: loc.experience_visa_desc),
-                        ExperienceWidget(logo: winter ? CALSPAN_WHITE : CALSPAN_BLACK, role: loc.experience_calspan, content: loc.experience_calspan_desc),
+                        ExperienceWidget(logo: _winter ? CALSPAN_WHITE : CALSPAN_BLACK, role: loc.experience_calspan, content: loc.experience_calspan_desc),
                         ExperienceWidget(logo: COACHMEPLUS, role: loc.experience_coachmeplus, content: loc.experience_coachmeplus_desc),
                       ],
                     ),
@@ -220,7 +222,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
                       previousController: _menuIndex == -1 ? null : expansionControllers[_menuIndex],
                       color: _menuIndex == 2 ? _jColors[_colorIndex] : secondaryColor,
                       children: [
-                        ProjectsWidget(folder: PROJECTS, itemCount: 2, loc: loc),
+                        ProjectsWidget(folder: PROJECTS, loc: loc),
                       ],
                     ),
                     MenuItem(
@@ -331,110 +333,19 @@ class NameWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextStyle textStyle = Theme.of(context).textTheme.displayLarge!;
+
     return SlideAnimation(
       onPressed: onPressed,
       child:  RichText(
         text: TextSpan(
           children: <TextSpan>[
-            TextSpan(text: loc.first_name, style: Theme.of(context).textTheme.displayLarge!.copyWith(color: textColor)),
-            TextSpan(text: loc.middle_name, style: Theme.of(context).textTheme.displayLarge!.copyWith(color: _jColors[colorIndex])),
-            TextSpan(text: loc.last_name, style: Theme.of(context).textTheme.displayLarge!.copyWith(color: textColor)),
+            TextSpan(text: loc.first_name, style: textStyle.copyWith(color: textColor)),
+            TextSpan(text: loc.middle_name, style: textStyle.copyWith(color: _jColors[colorIndex])),
+            TextSpan(text: loc.last_name, style: textStyle.copyWith(color: textColor)),
           ],
         ),
       ),
     );
   }
-}
-
-class Snowfall extends StatefulWidget {
-  const Snowfall({super.key});
-
-  @override
-  SnowfallState createState() => SnowfallState();
-}
-
-class SnowfallState extends State<Snowfall> with TickerProviderStateMixin {
-  late AnimationController _animationController;
-  final List<Snowflake> _snowflakes = [];
-
-  @override
-  void initState() {
-    super.initState();
-    _animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 10000),
-    )..repeat();
-  }
-
-  @override
-  void dispose() {
-    _animationController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    if (_snowflakes.isEmpty) {
-      for (int i = 0; i < 150; i++) { // Increased snowflakes count
-        _snowflakes.add(Snowflake(
-          x: Random().nextInt((MediaQuery.of(context).size.width.toInt() * 1.5).round()) + 0.0,
-          y: -i * 10,
-          size: 2.0 + Random().nextInt(5), // Reduced max size
-          speed: 0.5 + Random().nextDouble(),
-        ));
-      }
-    }
-    
-    return AnimatedBuilder(
-      animation: _animationController,
-      builder: (context, child) {
-        return CustomPaint(
-          painter: SnowfallPainter(_snowflakes),
-          child: SizedBox(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-          ),
-        );
-      },
-    );
-  }
-}
-
-class Snowflake {
-  double x;
-  double y;
-  double size;
-  double speed;
-
-  Snowflake({required this.x, required this.y, required this.size, required this.speed});
-
-  void update() {
-    x -= speed;
-    y += speed * 2;
-  }
-}
-
-class SnowfallPainter extends CustomPainter {
-  final List<Snowflake> _snowflakes;
-
-  SnowfallPainter(this._snowflakes);
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    for (var snowflake in _snowflakes) {
-      snowflake.update();
-      if (snowflake.x < 0 || snowflake.y > size.height) {
-        snowflake.x = Random().nextInt((size.width.toInt() * 1.3).round()) + 0.0;
-        snowflake.y = Random().nextInt(100) * -1.0;
-      }
-      canvas.drawCircle(
-        Offset(snowflake.x, snowflake.y),
-        snowflake.size,
-        Paint()..color = Colors.white,
-      );
-    }
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
 }

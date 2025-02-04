@@ -82,7 +82,7 @@ class RoundButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var backgroundColor = Provider.of<ThemeModel>(context).currentTheme.secondaryHeaderColor;
+    Color backgroundColor = Provider.of<ThemeModel>(context).currentTheme.secondaryHeaderColor;
 
     return TextButton(
       onPressed: onPressed,

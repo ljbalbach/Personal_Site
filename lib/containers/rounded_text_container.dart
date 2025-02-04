@@ -28,7 +28,7 @@ class ExperienceWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var primaryColor = Provider.of<ThemeModel>(context).currentTheme.primaryColor;
+    Color primaryColor = Provider.of<ThemeModel>(context).currentTheme.primaryColor;
 
     return RoundedContainer(
       children: [
@@ -69,7 +69,7 @@ class ProjectWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var themeModel = Provider.of<ThemeModel>(context).currentTheme;
+    ThemeData themeModel = Provider.of<ThemeModel>(context).currentTheme;
     Color textColor = themeModel.primaryColor;
     return RoundedContainer(
       children: [
@@ -113,15 +113,15 @@ class ProjectWidget extends StatelessWidget {
 class ProjectsWidget extends StatelessWidget {
   final String folder;
   final AppLocalizations loc;
-  final int itemCount;
 
-  const ProjectsWidget({required this.folder, required this.loc, this.itemCount = 0, super.key});
+  const ProjectsWidget({required this.folder, required this.loc, super.key});
 
   @override
   Widget build(BuildContext context) {
     List<String> projectTitles = [loc.project_1_title, loc.project_2_title];
     List<String> projectDescriptions = [loc.project_1_description, loc.project_2_description];
     List<String?> links = ["https://ljbalbach.github.io/Kite_Calculator/", null];
+    int itemCount = projectTitles.length;
 
     final children = <Widget>[];
     for (var i = 0; i < itemCount; i++) {

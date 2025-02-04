@@ -18,7 +18,7 @@ class DefaultContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var loc = AppLocalizations.of(context);
+    AppLocalizations loc = AppLocalizations.of(context);
     Color backgroundColor = Provider.of<ThemeModel>(context).currentTheme.primaryColor;
 
     return AnnotatedRegion(

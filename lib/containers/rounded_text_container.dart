@@ -56,6 +56,7 @@ class ProjectWidget extends StatelessWidget {
   final String folder;
   final String title;
   final String content;
+  final AppLocalizations loc;
   final String? link;
 
   const ProjectWidget({
@@ -63,6 +64,7 @@ class ProjectWidget extends StatelessWidget {
     required this.folder,
     required this.title,
     required this.content,
+    required this.loc,
     this.link,
     super.key
   });
@@ -83,8 +85,16 @@ class ProjectWidget extends StatelessWidget {
               if (link != null)
                 RoundButton(
                   onPressed: () async {
+                    final messenger = ScaffoldMessenger.of(context);
+                    try {
                       await launchUrl(Uri.parse(link!));
-                    },
+                    } catch (e) {
+                      if (!context.mounted) return;
+                      messenger.showSnackBar(
+                        SnackBar(content: Text(loc.link_error(link!))),
+                      );
+                    }
+                  },
                   child: Icon(Icons.open_in_new_rounded, color: themeModel.secondaryHeaderColor),
                 ),
             ],
@@ -130,6 +140,7 @@ class ProjectsWidget extends StatelessWidget {
         folder: folder,
         title: projectTitles[i],
         content: projectDescriptions[i],
+        loc: loc,
         link: links[i],
       ));
     }

@@ -27,5 +27,15 @@
     "project_2_description": "Virtual reality provides an escape from everyday life. It allows users to experience an artificial environment that they may otherwise never see. VR is not just used for entertainment; it has very real practical and educational applications. This project seeks to use virtual reality to teach users some of the basics of scuba diving. By reducing the barrier to entry, it will make diving more accessible, and hopefully spread interest in it. The final artifact is a scuba diving simulator that will show how applicable VR is as a teaching method.\n\nThis scuba diving simulator uses aspects from real diving courses to make it more realistic. It uses virtual gauges based off real dive instruments and encourages the users to learn their functionality through trial and error. Teaching a subject through virtual reality makes it more like a game. This change of point of view can help users engage with the teaching and absorb more information.\n\nParticipants in the simulator’s user study agreed that this simulator would encourage environmental awareness despite not having a large focus on the topic. By getting more people interested in diving, the simulator could help to spread involvement in ocean conservation. Most participants were able to learn more about the subject and found the experience immersive and informative. The project provides a great basis for expansion into other aspects of diving or even different subjects. It could also be integrated with various dive courses to help improve and streamline the learning process.",
 
     "@_PHOTOS": {},
-    "photos": "Photos"
+    "photos": "Photos",
+
+    "@_ERRORS": {},
+    "link_error": "Could not launch link: {link}",
+    "@link_error": {
+        "placeholders": {
+            "link": {
+                "type": "String"
+            }
+        }
+    }
 }

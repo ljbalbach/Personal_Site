@@ -113,8 +113,8 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
           borderRadius: BorderRadius.circular(15),
         ),
         child: Row(children: [
-          SocialLink(logo: GITHUB, link: "https://github.com/ljbalbach", color: secondaryColor),
-          SocialLink(logo: LINKEDIN, link: "https://www.linkedin.com/in/lucas-balbach-950002108/", color: secondaryColor),
+          SocialLink(logo: GITHUB, link: "https://github.com/ljbalbach", color: secondaryColor, loc: loc),
+          SocialLink(logo: LINKEDIN, link: "https://www.linkedin.com/in/lucas-balbach-950002108/", color: secondaryColor, loc: loc),
         ]),
       ) : null,
       bottomRight: GestureDetector(
@@ -307,8 +307,9 @@ class SocialLink extends StatelessWidget {
   final String logo;
   final String link;
   final Color color;
+  final AppLocalizations loc;
 
-  const SocialLink({required this.logo, required this.link, required this.color, super.key});
+  const SocialLink({required this.logo, required this.link, required this.color, required this.loc, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -316,7 +317,15 @@ class SocialLink extends StatelessWidget {
       hoverColor: Colors.transparent,
       splashColor: Colors.transparent,
       onPressed: () async {
-        await launchUrl(Uri.parse(link));
+        final messenger = ScaffoldMessenger.of(context);
+        try {
+          await launchUrl(Uri.parse(link));
+        } catch (e) {
+          if (!context.mounted) return;
+          messenger.showSnackBar(
+            SnackBar(content: Text(loc.link_error(link))),
+          );
+        }
       },
       icon: Image.asset(logo, height: MediaQuery.of(context).size.height / 22, color: color),
     );

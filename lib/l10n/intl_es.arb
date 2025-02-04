@@ -27,5 +27,15 @@
     "project_2_description": "La realidad virtual permite escapar de la vida cotidiana. Permite a los usuarios experimentar un entorno artificial que de otro modo nunca verían. La realidad virtual no sólo se utiliza para el entretenimiento, sino que tiene aplicaciones prácticas y educativas muy reales. Este proyecto pretende utilizar la realidad virtual para enseñar a los usuarios algunos de los fundamentos del submarinismo. Al reducir la barrera de entrada, hará que el buceo sea más accesible y, con un poco de suerte, difundirá el interés por él. El artefacto final es un simulador de submarinismo que demostrará lo aplicable que es la RV como método de enseñanza.\n\nEste simulador de submarinismo utiliza aspectos de cursos de buceo reales para hacerlo más realista. Utiliza manómetros virtuales basados en instrumentos de buceo reales y anima a los usuarios a aprender su funcionalidad mediante ensayo y error. Enseñar una materia a través de la realidad virtual hace que se parezca más a un juego. Este cambio de punto de vista puede ayudar a los usuarios a comprometerse con la enseñanza y absorber más información.\n\nLos participantes en el estudio de usuarios del simulador coincidieron en que éste fomentaría la concienciación medioambiental a pesar de no centrarse demasiado en el tema. Al conseguir que más gente se interese por el buceo, el simulador podría contribuir a difundir la implicación en la conservación de los océanos. La mayoría de los participantes pudieron aprender más sobre el tema y encontraron la experiencia inmersiva e informativa. El proyecto es una buena base para ampliarlo a otros aspectos del buceo o incluso a otros temas. También podría integrarse en diversos cursos de buceo para ayudar a mejorar y agilizar el proceso de aprendizaje.",
 
     "@_PHOTOS": {},
-    "photos": "Fotos"
+    "photos": "Fotos",
+
+    "@_ERRORS": {},
+    "link_error": "No se pude abrir el enalce: {link}",
+    "@link_error": {
+        "placeholders": {
+            "link": {
+                "type": "String"
+            }
+        }
+    }
 }

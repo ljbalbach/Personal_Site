@@ -95,6 +95,7 @@ class ProjectWidget extends StatelessWidget {
                       );
                     }
                   },
+                  color: themeModel.primaryColor,
                   child: Icon(Icons.open_in_new_rounded, color: themeModel.secondaryHeaderColor),
                 ),
             ],

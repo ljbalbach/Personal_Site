@@ -77,12 +77,18 @@ class BodyText extends StatelessWidget {
 class RoundButton extends StatelessWidget {
   final VoidCallback onPressed;
   final Widget child;
+  final Color? color;
 
-  const RoundButton({required this.onPressed, required this.child, super.key});
+  const RoundButton({required this.onPressed, required this.child, this.color, super.key});
 
   @override
   Widget build(BuildContext context) {
-    Color backgroundColor = Provider.of<ThemeModel>(context).currentTheme.secondaryHeaderColor;
+    Color backgroundColor;
+    if (color == null) {
+      backgroundColor = Provider.of<ThemeModel>(context).currentTheme.secondaryHeaderColor;
+    } else {
+      backgroundColor = color!;
+    }
 
     return TextButton(
       onPressed: onPressed,

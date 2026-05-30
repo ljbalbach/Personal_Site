@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_starter/l10n/app_localizations.dart';
 import 'package:flutter_starter/containers/default_container.dart';
 import 'package:flutter_starter/containers/photo_grid.dart';
 import 'package:flutter_starter/containers/rounded_text_container.dart';
@@ -203,6 +203,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
                       previousController: _menuIndex == -1 ? null : expansionControllers[_menuIndex],
                       color: _menuIndex == 1 ? _jColors[_colorIndex] : secondaryColor,
                       children: [
+                        ExperienceWidget(logo: COACHMEPLUS, role: loc.experience_coachmeplus_2, content: loc.experience_coachmeplus_2_desc),
                         ExperienceWidget(logo: VISA, role: loc.experience_visa, content: loc.experience_visa_desc),
                         ExperienceWidget(logo: _winter ? CALSPAN_WHITE : CALSPAN_BLACK, role: loc.experience_calspan, content: loc.experience_calspan_desc),
                         ExperienceWidget(logo: COACHMEPLUS, role: loc.experience_coachmeplus, content: loc.experience_coachmeplus_desc),

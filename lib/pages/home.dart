@@ -285,7 +285,10 @@ class MenuItem extends StatelessWidget {
                 controller.expand();
               }
             },
-            child: MenuText(text: text, color: color),
+            child: Padding(
+              padding: const EdgeInsets.only(left: 4.0, right: 4.0),
+              child: MenuText(text: text, color: color),
+            ),
           ),]),
           enabled: false,
           controller: controller,

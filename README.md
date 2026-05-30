@@ -7,7 +7,13 @@ flutter pub get
 ```
 
 ## Running
-run `flutter run -d chrome --web-renderer html --release`
+```
+flutter run -d chrome --release
+```
 
 ## Deploying
-run `flutter build web --web-renderer html`
+```
+flutter build web
+cd build/web
+git push --force --set-upstream origin main
+```
